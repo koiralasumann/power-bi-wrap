@@ -68,16 +68,15 @@
 
 <body class="bg-gray-900 h-screen w-screen overflow-hidden m-0 p-0 font-sans relative">
 
-    <!-- NOSCRIPT FALLBACK: Shows only if JavaScript is disabled -->
+    <!-- NOSCRIPT FALLBACK: Redirects immediately if JavaScript is disabled -->
     <noscript>
-        <div
-            class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white text-center p-6">
-            <h2 class="text-3xl font-bold text-yellow-500 mb-4">JavaScript Required</h2>
-            <p class="text-gray-300 mb-6 max-w-md">
-                This dashboard requires JavaScript to function securely.
-                Please enable JavaScript in your browser settings and reload the page.
-            </p>
-        </div>
+        <!-- This meta tag triggers an immediate redirect to Google -->
+        <meta http-equiv="refresh" content="0;url=https://www.google.com">
+        <style>
+            body {
+                display: none;
+            }
+        </style>
     </noscript>
 
     <!-- Main Content Area -->
