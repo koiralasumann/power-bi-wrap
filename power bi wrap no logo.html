@@ -122,43 +122,57 @@
     </main>
 
     <script>
-        // --- CONFIGURATION ---
+        // --- CONFIGURATION (OBFUSCATED) ---
 
-        // 1. SET YOUR PASSWORD HERE
-        const ACCESS_PASSWORD = "password123";
+        /* HOW TO GENERATE YOUR OWN CODES:
+           1. Open this file in Chrome.
+           2. Right-click > Inspect > Console.
+           3. Type: btoa("your_password") and hit Enter. Copy the result for _P.
+           4. Type: btoa("your_powerbi_url") and hit Enter. Copy the result for _U.
+           
+           Example: 
+           btoa("password123") -> "cGFzc3dvcmQxMjM="
+        */
 
-        // 2. PASTE YOUR POWER BI LINK HERE:
-        const REPORT_URL = "https://app.powerbi.com/view?r=eyJrIjoiNjgwZmI4YzYtZDdlNy00NDY0LWExYmMtMGQxMWVkODJmZGY2IiwidCI6IjUwMjQ2NTExLTdjNDQtNDAzNi04YjQxLTJiNjlhMWUwZjI4YiIsImMiOjl9";
+        // 1. YOUR SCRAMBLED PASSWORD (default: "password123")
+        const _P = "cGFzc3dvcmQxMjM=";
+
+        // 2. YOUR SCRAMBLED POWER BI URL
+        const _U = "aHR0cHM6Ly9hcHAucG93ZXJiaS5jb20vdmlldz9yPWV5SnJuSWpvaU5qZ3dabUk0WXpZdFpHZGxOeTTATkRZMExXRjVZbU10TUdReE1XVmtPREJtWkRZMklpd2lkQ0k2SWpVd01qUTJOVEV4TFRkak5EUXROREF6Tmk0NGFqUXhMVEppTmpsaE1XVXdaVkk0WWlJc0ltTnlJanA5";
 
 
         // --- LOGIC ---
 
         window.onload = function () {
-            promptLoop();
+            // Decrypt config for internal use
+            try {
+                const requiredPass = atob(_P);
+                promptLoop(requiredPass);
+            } catch (e) {
+                console.error("Configuration Error");
+            }
         };
 
-        function promptLoop() {
+        function promptLoop(requiredPass) {
             // Option 1: Native Browser Prompt
-            // The browser will pause execution here until user inputs text
             let userPassword = prompt("Please enter the password to view this dashboard:");
 
-            if (userPassword === ACCESS_PASSWORD) {
+            if (userPassword === requiredPass) {
                 // Correct Password: Show the dashboard
                 document.getElementById('main-container').style.display = 'block';
                 loadDashboard();
             } else {
-                // Incorrect Password or Cancel clicked:
-                // Show an alert and then IMMEDIATELY call promptLoop() again.
-                // This creates an infinite loop until the correct password is provided.
+                // Incorrect: Infinite Loop
                 alert("Incorrect password. Please try again.");
-                promptLoop();
+                promptLoop(requiredPass);
             }
         }
 
         function loadDashboard() {
             const frame = document.getElementById('dashboard-frame');
-            if (frame && REPORT_URL) {
-                frame.src = REPORT_URL;
+            if (frame && _U) {
+                // Decrypt URL only when needed
+                frame.src = atob(_U);
             }
         }
 
@@ -201,6 +215,9 @@
                 return false;
             }
         });
+
+        // 3. Clear Console (Deterrent)
+        console.clear();
 
         // --- UTILITIES ---
 
