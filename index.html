@@ -68,6 +68,18 @@
 
 <body class="bg-gray-900 h-screen w-screen overflow-hidden m-0 p-0 font-sans relative">
 
+    <!-- NOSCRIPT FALLBACK: Shows only if JavaScript is disabled -->
+    <noscript>
+        <div
+            class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-900 text-white text-center p-6">
+            <h2 class="text-3xl font-bold text-yellow-500 mb-4">JavaScript Required</h2>
+            <p class="text-gray-300 mb-6 max-w-md">
+                This dashboard requires JavaScript to function securely.
+                Please enable JavaScript in your browser settings and reload the page.
+            </p>
+        </div>
+    </noscript>
+
     <!-- Main Content Area -->
     <!-- Hidden by default (display:none), only shown after password success -->
     <main class="w-full h-full relative z-10" id="main-container" style="display:none;">
