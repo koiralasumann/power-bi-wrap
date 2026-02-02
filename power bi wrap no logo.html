@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +19,7 @@
             left: 0;
             width: 100%;
             /* Adds height for the footer (approx 37px) to push it out of view */
-            height: calc(100% + 37px);
+            height: calc(100% + 37px); 
             border: none;
         }
 
@@ -32,14 +31,14 @@
             width: 100%;
             height: 60px;
             /* Gradient to make white text readable, but allows content below to be seen */
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
             display: flex;
             justify-content: flex-end;
             align-items: center;
             padding: 0 24px;
             z-index: 40;
-            opacity: 1;
-            pointer-events: none;
+            opacity: 1; 
+            pointer-events: none; 
         }
 
         .control-btn {
@@ -55,9 +54,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            pointer-events: auto;
+            pointer-events: auto; 
         }
-
+        
         .control-btn:hover {
             background: white;
             color: black;
@@ -65,24 +64,19 @@
         }
     </style>
 </head>
-
 <body class="bg-gray-900 h-screen w-screen overflow-hidden m-0 p-0 font-sans relative">
 
     <!-- NOSCRIPT FALLBACK: Redirects immediately if JavaScript is disabled -->
     <noscript>
         <!-- This meta tag triggers an immediate redirect to Google -->
         <meta http-equiv="refresh" content="0;url=https://www.google.com">
-        <style>
-            body {
-                display: none;
-            }
-        </style>
+        <style>body { display: none; }</style>
     </noscript>
 
     <!-- Main Content Area -->
     <!-- Hidden by default (display:none), only shown after password success -->
     <main class="w-full h-full relative z-10" id="main-container" style="display:none;">
-
+        
         <!-- HEADER -->
         <div class="top-bar">
             <!-- Title -->
@@ -93,90 +87,73 @@
             <!-- Refresh Button -->
             <button onclick="reloadFrame()" class="control-btn" title="Refresh Report">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 4v5h.28l2.03-2.05A9 9 0 1 1 5.64 21c-.74-.9-1.29-1.93-1.63-3.03"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.28l2.03-2.05A9 9 0 1 1 5.64 21c-.74-.9-1.29-1.93-1.63-3.03"></path>
                 </svg>
             </button>
 
             <!-- Full Screen Button -->
             <button onclick="toggleFullScreen()" class="control-btn" title="Toggle Full Screen">
                 <svg id="icon-max" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
                 </svg>
                 <svg id="icon-min" class="hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </div>
 
         <!-- The Dashboard Wrapper -->
         <div class="embed-container">
-            <iframe id="dashboard-frame" title="Power BI Report" allowFullScreen="true">
+            <iframe 
+                id="dashboard-frame"
+                title="Power BI Report"
+                allowFullScreen="true">
             </iframe>
         </div>
 
     </main>
 
     <script>
-        // --- CONFIGURATION (OBFUSCATED) ---
+        // --- CONFIGURATION ---
+        
+        // 1. SET YOUR PASSWORD HERE
+        const ACCESS_PASSWORD = "password123";
 
-        /* HOW TO GENERATE YOUR OWN CODES:
-           1. Open this file in Chrome.
-           2. Right-click > Inspect > Console.
-           3. Type: btoa("your_password") and hit Enter. Copy the result for _P.
-           4. Type: btoa("your_powerbi_url") and hit Enter. Copy the result for _U.
-           
-           Example: 
-           btoa("password123") -> "cGFzc3dvcmQxMjM="
-        */
-
-        // 1. YOUR SCRAMBLED PASSWORD (default: "password123")
-        const _P = "cGFzc3dvcmQxMjM=";
-
-        // 2. YOUR SCRAMBLED POWER BI URL
-        const _U = "aHR0cHM6Ly9hcHAucG93ZXJiaS5jb20vdmlldz9yPWV5SnJuSWpvaU5qZ3dabUk0WXpZdFpHZGxOeTTATkRZMExXRjVZbU10TUdReE1XVmtPREJtWkRZMklpd2lkQ0k2SWpVd01qUTJOVEV4TFRkak5EUXROREF6Tmk0NGFqUXhMVEppTmpsaE1XVXdaVkk0WWlJc0ltTnlJanA5";
+        // 2. PASTE YOUR POWER BI LINK HERE:
+        const REPORT_URL = "https://app.powerbi.com/view?r=eyJrIjoiNjgwZmI4YzYtZDdlNy00NDY0LWExYmMtMGQxMWVkODJmZGY2IiwidCI6IjUwMjQ2NTExLTdjNDQtNDAzNi04YjQxLTJiNjlhMWUwZjI4YiIsImMiOjl9";
 
 
         // --- LOGIC ---
 
-        window.onload = function () {
-            // Decrypt config for internal use
-            try {
-                const requiredPass = atob(_P);
-                promptLoop(requiredPass);
-            } catch (e) {
-                console.error("Configuration Error");
-            }
+        window.onload = function() {
+            promptLoop();
         };
 
-        function promptLoop(requiredPass) {
+        function promptLoop() {
             // Option 1: Native Browser Prompt
+            // The browser will pause execution here until user inputs text
             let userPassword = prompt("Please enter the password to view this dashboard:");
 
-            if (userPassword === requiredPass) {
+            if (userPassword === ACCESS_PASSWORD) {
                 // Correct Password: Show the dashboard
                 document.getElementById('main-container').style.display = 'block';
                 loadDashboard();
             } else {
                 // Incorrect: Infinite Loop
                 alert("Incorrect password. Please try again.");
-                promptLoop(requiredPass);
+                promptLoop();
             }
         }
 
         function loadDashboard() {
             const frame = document.getElementById('dashboard-frame');
-            if (frame && _U) {
-                // Decrypt URL only when needed
-                frame.src = atob(_U);
+            if (frame && REPORT_URL) {
+                frame.src = REPORT_URL;
             }
         }
 
         // --- SECURITY DETERRENTS ---
-
+        
         // 1. Disable Right-Click Context Menu
         document.addEventListener('contextmenu', (e) => {
             e.preventDefault();
@@ -189,7 +166,7 @@
                 e.preventDefault();
                 return false;
             }
-
+            
             // Ctrl + U (View Source)
             if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) {
                 e.preventDefault();
@@ -214,7 +191,7 @@
                 return false;
             }
         });
-
+        
         // 3. Clear Console (Deterrent)
         console.clear();
 
@@ -235,7 +212,7 @@
         document.addEventListener('fullscreenchange', () => {
             const iconMax = document.getElementById('icon-max');
             const iconMin = document.getElementById('icon-min');
-
+            
             if (document.fullscreenElement) {
                 iconMax.classList.add('hidden');
                 iconMin.classList.remove('hidden');
@@ -253,5 +230,4 @@
         }
     </script>
 </body>
-
 </html>
