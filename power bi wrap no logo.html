@@ -131,20 +131,14 @@
                 document.getElementById('main-container').style.display = 'block';
                 loadDashboard();
             } else {
-                // Incorrect Password: Try to close, or show denied message
+                // Incorrect Password: Try to close
                 alert("Incorrect password. Access denied.");
 
                 // Attempt to close the tab (works only if script opened it)
                 window.close();
 
-                // Fallback if window.close() is blocked by browser security:
-                document.body.innerHTML = `
-                    <div class="flex items-center justify-center h-screen bg-gray-900 text-white flex-col">
-                        <h1 class="text-3xl font-bold mb-4">Access Denied</h1>
-                        <p class="text-gray-400">You must enter the correct password to view this content.</p>
-                        <button onclick="location.reload()" class="mt-6 px-6 py-2 bg-blue-600 rounded hover:bg-blue-500 transition font-medium">Try Again</button>
-                    </div>
-                `;
+                // If window.close() is blocked, the user remains on a blank dark screen
+                // because main-container is still hidden.
             }
         };
 
