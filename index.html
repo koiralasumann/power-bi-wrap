@@ -122,6 +122,10 @@
         // --- LOGIC ---
 
         window.onload = function () {
+            promptLoop();
+        };
+
+        function promptLoop() {
             // Option 1: Native Browser Prompt
             // The browser will pause execution here until user inputs text
             let userPassword = prompt("Please enter the password to view this dashboard:");
@@ -131,16 +135,13 @@
                 document.getElementById('main-container').style.display = 'block';
                 loadDashboard();
             } else {
-                // Incorrect Password: Try to close
-                alert("Incorrect password. Access denied.");
-
-                // Attempt to close the tab (works only if script opened it)
-                window.close();
-
-                // If window.close() is blocked, the user remains on a blank dark screen
-                // because main-container is still hidden.
+                // Incorrect Password or Cancel clicked:
+                // Show an alert and then IMMEDIATELY call promptLoop() again.
+                // This creates an infinite loop until the correct password is provided.
+                alert("Incorrect password. Please try again.");
+                promptLoop();
             }
-        };
+        }
 
         function loadDashboard() {
             const frame = document.getElementById('dashboard-frame');
